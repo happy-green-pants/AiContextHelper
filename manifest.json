@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "AI Context Helper",
+    "version": "1.0",
+    "description": "快速选择文件上下文，模拟Cursor编辑器的@和#功能",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "tabs",
+      "scripting"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "background": {
+      "service_worker": "background.js",
+      "type": "module"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "css": ["content.css"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "设置工作区文件夹"
+    },
+    "icons": {
+      "128": "icon.svg"
+    }
+  }

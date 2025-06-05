@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>扫描文件</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-size: 18px;
+      color: #333;
+    }
+    button {
+      background: #1a73e8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    button:hover {
+      background: #1557b0;
+    }
+    .progress {
+      margin-top: 20px;
+    }
+    .progress-bar {
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #1a73e8;
+      width: 0;
+      transition: width 0.3s ease;
+    }
+    .status {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+    .error {
+      color: #d93025;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>扫描文件</h1>
+    <button id="selectFolder">选择文件夹</button>
+    <div class="progress" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <div class="status" id="status">准备扫描...</div>
+    </div>
+  </div>
+  <script src="file-scanner.js"></script>
+</body>
+</html> 
