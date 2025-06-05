@@ -14,8 +14,8 @@
 
 ### 1. 下载源码
 ```bash
-git clone [repository-url]
-cd ai-context-helper
+git clone https://github.com/happy-green-pants/AiContextHelper.git
+cd AiContextHelper
 ```
 
 ### 2. 加载到Chrome浏览器
