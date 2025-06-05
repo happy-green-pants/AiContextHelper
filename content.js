@@ -127,7 +127,7 @@ class FileContextManager {
         } else if (event.key === 'ArrowUp') {
           event.preventDefault();
           this.navigateDropdown(-1);
-        } else if (event.key === 'Enter') {
+        } else if (event.key === 'Tab') {
           event.preventDefault();
           this.selectFile();
         } else if (event.key === 'Escape') {
