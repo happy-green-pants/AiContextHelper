@@ -1,63 +1,5 @@
 // 处理文件系统操作
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'SELECT_FOLDER') {
-    // 创建一个新标签页来处理文件夹选择
-    chrome.tabs.create({
-      url: 'folder-picker.html',
-      active: true
-    }, (tab) => {
-      // 保存回调信息
-      chrome.storage.local.set({
-        folderPickerCallback: {
-          tabId: tab.id,
-          sender: sender.tab ? sender.tab.id : null,
-          popupId: sender.id // 保存popup的ID
-        }
-      });
-    });
-    return true;
-  }
-  
-  if (request.type === 'FOLDER_SELECTED') {
-    // 处理文件夹选择结果
-    chrome.storage.local.get(['folderPickerCallback'], async (result) => {
-      if (result.folderPickerCallback) {
-        const { tabId, sender, popupId } = result.folderPickerCallback;
-        
-        // 保存工作区路径
-        await chrome.storage.local.set({ 
-          workspacePath: request.path,
-          workspaceSelected: true
-        });
-        
-        // 关闭选择器标签页
-        chrome.tabs.remove(tabId);
-        
-        // 清除回调信息
-        chrome.storage.local.remove(['folderPickerCallback']);
-        
-        // 通知popup
-        if (popupId) {
-          chrome.runtime.sendMessage({
-            type: 'FOLDER_SELECTION_RESULT',
-            success: true,
-            path: request.path
-          });
-        }
-        
-        // 通知内容脚本
-        if (sender) {
-          chrome.tabs.sendMessage(sender, {
-            type: 'FOLDER_SELECTION_RESULT',
-            success: true,
-            path: request.path
-          });
-        }
-      }
-    });
-    return true;
-  }
-  
   if (request.type === 'SCAN_FILES') {
     // 创建一个新标签页来扫描文件
     chrome.tabs.create({
@@ -69,8 +11,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         fileScannerCallback: {
           tabId: tab.id,
           sender: sender.tab ? sender.tab.id : null,
-          popupId: sender.id,
-          path: request.path
+          popupId: sender.id
         }
       });
     });
@@ -87,6 +28,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         await chrome.storage.local.set({ 
           workspaceFiles: request.files,
           filesScanned: true
+        });
+        
+        // 广播文件更新消息到所有标签页
+        chrome.tabs.query({}, (tabs) => {
+          tabs.forEach(tab => {
+            chrome.tabs.sendMessage(tab.id, { type: 'FILES_UPDATED' })
+              .catch(err => {
+                // 忽略没有内容脚本的页面（如 chrome:// 页面）的错误
+              });
+          });
         });
         
         // 关闭扫描器标签页

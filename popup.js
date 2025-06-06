@@ -69,7 +69,7 @@ class WorkspaceManager {
         
         // 发送消息给后台脚本
         chrome.runtime.sendMessage({
-          type: 'SELECT_FOLDER'
+          type: 'SCAN_FILES'
         });
       } catch (error) {
         console.error('选择文件夹过程中发生错误:', error);

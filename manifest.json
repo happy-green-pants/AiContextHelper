@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "AI Context Helper",
     "version": "0.0.1",
-    "description": "快速选择文件上下文，模拟Cursor编辑器的@和#功能",
+    "description": "快速选择文件上下文，模拟AI编辑器的@和#功能",
     "permissions": [
       "activeTab",
       "storage",

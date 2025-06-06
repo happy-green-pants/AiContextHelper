@@ -248,7 +248,12 @@ class FileContextManager {
         .sort((a, b) => {
           const aIndex = a.name.toLowerCase().indexOf(lowerQuery);
           const bIndex = b.name.toLowerCase().indexOf(lowerQuery);
-          return aIndex - bIndex;
+          // 主要排序规则：按查询词在文件名中出现的位置排序
+          if (aIndex !== bIndex) {
+            return aIndex - bIndex;
+          }
+          // 次要排序规则：如果位置相同，按文件名字母顺序排序
+          return a.name.localeCompare(b.name);
         });
     }
   
