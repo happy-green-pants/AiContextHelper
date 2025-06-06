@@ -123,12 +123,15 @@ class FileContextManager {
       if (this.dropdown && this.dropdown.style.display === 'block') {
         if (event.key === 'ArrowDown') {
           event.preventDefault();
+          event.stopImmediatePropagation();
           this.navigateDropdown(1);
         } else if (event.key === 'ArrowUp') {
           event.preventDefault();
+          event.stopImmediatePropagation();
           this.navigateDropdown(-1);
         } else if (event.key === 'Tab') {
           event.preventDefault();
+          event.stopImmediatePropagation();
           this.selectFile();
         } else if (event.key === 'Escape') {
           this.hideDropdown();
