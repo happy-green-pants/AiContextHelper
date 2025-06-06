@@ -97,6 +97,41 @@ cd AiContextHelper
 - **Chrome Storage API**: 高效的数据存储
 - **纯JavaScript**: 无外部依赖，轻量高效
 
+## 📦 版本管理
+
+### 版本号规范
+- 主版本号：重大更新，不兼容的API修改
+- 次版本号：新功能，向下兼容
+- 修订号：问题修复，向下兼容
+
+### 更新版本
+1. 修改 `version.js` 中的版本信息：
+   ```javascript
+   const VERSION = {
+     number: '0.0.2',  // 更新版本号
+     date: '2025-06-06',  // 更新日期
+     name: 'AI Context Helper'
+   };
+   ```
+
+2. 运行版本更新命令：
+   ```bash
+   npm run version
+   ```
+   或
+   ```bash
+   npm run build
+   ```
+
+3. 更新 `CHANGELOG.md` 文件，添加新版本的更新说明
+
+### 版本文件说明
+- `version.js`: 集中管理版本信息
+- `manifest.json`: 插件配置文件，版本号由构建脚本自动更新
+- `popup.html`: 显示版本号，通过 JavaScript 动态加载
+- `CHANGELOG.md`: 记录版本更新历史
+- `build.js`: 自动更新版本号的构建脚本
+
 ## 📝 更新日志
 
 ### v0.0.1
